@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- <link rel="author" href="humans.txt">
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href=".css"> -->
+    <meta charset="utf-8">
+
+    <!-- Scripts -->
+
+    <title>dctr</title>
+  </head>
+  <body>
+
+    <header>
+      <nav>
+        <ul>
+          <li></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div role="main">
+      <h1>Hi</h1>
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
+    </div>
+
+    <footer></footer>
+
+  </body>
+</html>
