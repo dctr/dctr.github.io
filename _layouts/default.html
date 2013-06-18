@@ -13,7 +13,8 @@
   <body>
 
     <header>
-      {% include test.md %}
+      {% capture test %}{% include test.md %}{% endcapture %}
+      {{ test | markdownify }}
       <nav>
         <ul>
           <li></li>
