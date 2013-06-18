@@ -1,6 +1,6 @@
 {% capture test %}
 # Include
 
-foo
+foo bar
 {% endcapture %}
 {{ test | markdownify }}
