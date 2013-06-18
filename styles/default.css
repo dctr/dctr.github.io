@@ -1,6 +1,8 @@
 body > * {
   margin-left: 10em;
   margin-right: 10em;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 header, footer {
   background-color: #333;
