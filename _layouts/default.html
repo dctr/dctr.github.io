@@ -11,10 +11,8 @@
     <title>dctr / {{ page.title }}</title>
   </head>
   <body>
-
+    {% include test.md %}
     <header>
-      {% capture test %}{% include test.md %}{% endcapture %}
-      {{ test | markdownify }}
       <nav>
         <ul>
           <li></li>
