@@ -1,0 +1,12 @@
+body > * {
+  margin-left: 10em;
+  margin-right: 10em;
+}
+header, footer {
+  background-color: #333;
+  color: #ccc;
+}
+div[role="main"] {
+  background-color: #ccc;
+  color: #333;
+}
