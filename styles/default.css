@@ -341,9 +341,7 @@ body > * {
   padding-bottom: 1em; }
 
 nav {
-  height: 2.5em; }
-  nav a {
-    text-decoration: none; }
+  height: 2.4em; }
   nav ul {
     margin: 0;
     padding: 0; }
@@ -359,7 +357,7 @@ nav {
     display: block;
     width: 5em; }
   nav li ul {
-    position: fixed; }
+    position: absolute; }
 
 /*
  * Colors / Fonts

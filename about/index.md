@@ -1,10 +1,7 @@
 ---
-title: About
+title: About me
 layout: default
 ---
-Outline
-=======
-
 Name
 : David Christ
 
