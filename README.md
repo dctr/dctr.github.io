@@ -1,6 +1,3 @@
-# Hello World
+# Homepage for @dctr
 
-Hi there and welcome to my homepage.
-
-
-# Recent blog posts
+Please visit <http://dctr.github.io> to view the page.
