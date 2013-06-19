@@ -30,21 +30,35 @@ body > * {
   }
 }
 nav {
-  ul, li {
-    display: inline;
+  height: 2.5em;
+  a {
+    text-decoration: none;
+  }
+  ul {
     margin: 0;
     padding: 0;
   }
-}
-.button {
-  border: 1px solid;
-  border-radius: 0.5em;
-  padding: 0.5em;
-  text-decoration: none;
+  li {
+    display: inline;
+    float: left;
+    margin: 0;
+    margin-right: 1em;
+    padding: 0;
+  }
+  ul ul {
+    display: none;
+  }
+  li:active ul, li:hover ul {
+    display: block;
+    width: 5em;
+  }
+  li ul {
+    position: fixed;
+  }
 }
 
 /*
- * Colors
+ * Colors / Fonts
  */
 body {
   background-color: $base02;
@@ -52,6 +66,7 @@ body {
 }
 header, footer {
   a {
+    background-color: $base02;
     color: $base2;
   }
 }
@@ -59,11 +74,25 @@ div[role="main"] {
   background-color: $base2;
   color: $base02;
 }
+dt {
+  font-weight: bold;
+}
+
 
 /*
  * Modules
  */
 
-dt {
-  font-weight: bold;
+.button {
+  border: 1px solid;
+  border-radius: 0.5em;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.5em;
+  text-align: center;
+  text-decoration: none;
+  width: 5em;
+}
+.floatright {
+  float: right;
 }
