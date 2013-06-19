@@ -15,5 +15,5 @@ layout: default
 
 # Work
 
-- [__](/downloads/___) (Diploma Thesis, German, n pages, m kB)
-- [Crowd storage for a distributed database](/downloads/crowd-storage-for-a-distributed-database.pdf) (6 pages, 118kB)
+- [Kooperative verteilte Fehleranalyse auf der Basis von Crowdsourcing](/downloads/kooperative-verteilte-fehleranalyse-auf-der-basis-von-crowdsourcing.pdf) (Diploma Thesis, German, 90 pages, 526 kB)
+- [Crowd storage for a distributed database](/downloads/crowd-storage-for-a-distributed-database.pdf) (Paper from Thesis, 6 pages, 118kB)
