@@ -1,3 +1,28 @@
+/*
+Font Sizing Hack via
+http://html5boilerblate.com and
+http://developer.yahoo.com/yui/fonts/
+=====================================
+target size Declare this
+in pixels (px) percent (%)
+10 77
+11 85
+12 93 (was 93)
+13 100
+14 108 (was 107)
+15 116 (was 114)
+16 123.1 (was 122)
+17 131 (was 129)
+18 138.5 (was 136)
+19 146.5 (was 144)
+20 153.9 (was 152)
+21 161.6 (was 159)
+22 167
+23 174
+24 182
+25 189
+26 197
+*/
 /* normalize.css v2.1.2 | MIT License | git.io/normalize */
 /* ==========================================================================
    HTML5 display definitions
@@ -358,6 +383,38 @@ nav {
     width: 5em; }
   nav li ul {
     position: absolute; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: lighter;
+  text-transform: capitalize;
+  font-variant: small-caps; }
+
+h1 {
+  font-size: 153.9%;
+  font-weight: normal;
+  border-bottom: 1px solid #073642; }
+
+h1:first {
+  font-size: 197%;
+  font-weight: bold;
+  text-align: center;
+  border: none; }
+
+h2 {
+  font-size: 153.9%;
+  border-bottom: 1px solid #073642; }
+
+h3 {
+  font-size: 146.5%; }
+
+h4 {
+  font-size: 138.5%; }
+
+h5 {
+  font-size: 138.5%; }
+
+h6 {
+  font-size: 138.5%; }
 
 /*
  * Colors / Fonts
