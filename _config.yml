@@ -1,4 +1,3 @@
-exclude: [src]
 lsi: false
 permalink: /blog/:title
 pygments: true
