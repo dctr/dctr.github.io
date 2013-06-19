@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="author" href="humans.txt">
+    <link rel="author" href="/humans.txt">
     <link rel="shortcut icon" href="/images/doctor.ico" />
 
     <link rel="stylesheet" href="/styles/normalize.css">
@@ -16,22 +16,26 @@
     <header>
       <nav>
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
+          <li><a href="/" class="button">Home</a></li>
+          <li><a href="/about" class="button">About</a></li>
           <li>
-            Projects
+            <span class="button">Projects</span>
             <ul>
-              <li><a href="/mute.js">mute.js</a></li>
-              <li><a href="/reason">REaSoN</a></li>
+              <li><a href="/mute.js" class="button">mute.js</a></li>
+              <li><a href="/reason" class="button">REaSoN</a></li>
             </ul>
           </li>
-          <li><a href="/blog">Blog</a></li>
+          <li><a href="/blog" class="button">Blog</a></li>
         </ul>
       </nav>
     </header>
 
     <div role="main">
+
+
 {{ content }}
+
+
     </div>
 
     <footer>&copy; 2013 <a href="https://github.com/dctr">dctr</a>. Hosted on <a href="https://github.com">GitHub</a>, powered by <a href="http://jekyllrb.com">Jekyll</a>.</footer>
