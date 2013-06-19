@@ -92,7 +92,7 @@ h1 {
   font-weight: normal;
   border-bottom: $border;
 }
-h1:first {
+div[role="main"] h1:first-child {
   font-size: 197%;
   font-weight: bold;
   text-align: center;
