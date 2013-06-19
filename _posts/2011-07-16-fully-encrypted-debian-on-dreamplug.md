@@ -64,15 +64,14 @@ You have to create two partitions on you external SD-Card. Partition 1: 100MB (v
 
 You should now verify cryptsetup and dosfstools are installed (and cfdisk, if you prefer it instead of fdisk). As root do:
 
-```shell
-dd if=/dev/urandom of=/dev/sdb bs=10M # If your device is filled with random data, one can not distinguish between used and unused data on the system partition
-cfdisk /dev/sdb # Set up as said above or as you wish at your risk ;-)
-mkfs.vfat /dev/sdb1
-cryptsetup --verbose --cipher=aes-cbc-essiv:sha256 --verify-passphrase --key-size=256 luksFormat /dev/sdb2
-cryptsetup luksOpen /dev/sdb2 sdb2_crypted
-mkfs.ext4 /dev/mapper/sdb2_crypted
-mount /dev/mapper/sdb2_crypted /mnt
-```
+    dd if=/dev/urandom of=/dev/sdb bs=10M # If your device is filled with random data, one can not distinguish between used and unused data on the system partition
+    cfdisk /dev/sdb # Set up as said above or as you wish at your risk ;-)
+    mkfs.vfat /dev/sdb1
+    cryptsetup --verbose --cipher=aes-cbc-essiv:sha256 --verify-passphrase --key-size=256 luksFormat /dev/sdb2
+    cryptsetup luksOpen /dev/sdb2 sdb2_crypted
+    mkfs.ext4 /dev/mapper/sdb2_crypted
+    mount /dev/mapper/sdb2_crypted /mnt
+
 
 *Note:* I have decided to use aes-cbc-essiv with a 256-bit key (after long hours of thinking and bugging a friend of mine, sorry G) as it is Debians default and a good compromise between read/write performance and security. If you like to have a little more performance, try to use --key-size=128 or maybe 192. If you are slightly more paranoid and like to have a bit more security in exchange to a noticeable but not to high slowdown and an experimental mode try --cipher=xts-plain and --key-size=512 (note that xts needs a 256 bit key for itself, so it only uses 256-bit for the aes key, so you need to set key-size to 512).
 
@@ -88,47 +87,43 @@ My multistrap method is derived from http://www.newit.co.uk/forum/index.php/topi
 
 *Note:* As an easier alternative to this step, you can just copy your existing system to the encrypted partition or use a default system from the globalscale download site. If you use the bootstrap method: Stay in the chroot environment.
 
-```shell
-multistrap -f multistrap.conf # For my config see appendix A
-mount /dev/sdb1 /mnt/boot/
-mknod /mnt/dev/console c 5 1
-mknod /mnt/dev/random c 1 8
-mknod /mnt/dev/urandom c 1 9
-mknod /mnt/dev/null c 1 3
-mknod /mnt/dev/ptmx c 5 2
-vim /etc/fstab # For my fstab see appendix B
-touch /mnt/etc/mtab
-echo "my-dreamplugs-hostname" > /mnt/etc/hostname # To use your old you can do "cat /etc/hostname > /mnt/etc/hostname"
-vim /mnt/etc/network/interfaces # you can propably use you old config via "cat /etc/network/interfaces > /mnt/etc/network/interfaces"
-touch /mnt/etc/udev/rules.d/75-persistent-net-generator.rules
-vim /mnt/etc/inittab # Basically add the JTAG console and comment out tty1-6, config see appendix C
-echo "vm.mmap_min_addr=32768" >> /mnt/etc/sysctl.d/local.conf # Was recommended, so what ;-)
-```
+    multistrap -f multistrap.conf # For my config see appendix A
+    mount /dev/sdb1 /mnt/boot/
+    mknod /mnt/dev/console c 5 1
+    mknod /mnt/dev/random c 1 8
+    mknod /mnt/dev/urandom c 1 9
+    mknod /mnt/dev/null c 1 3
+    mknod /mnt/dev/ptmx c 5 2
+    vim /etc/fstab # For my fstab see appendix B
+    touch /mnt/etc/mtab
+    echo "my-dreamplugs-hostname" > /mnt/etc/hostname # To use your old you can do "cat /etc/hostname > /mnt/etc/hostname"
+    vim /mnt/etc/network/interfaces # you can propably use you old config via "cat /etc/network/interfaces > /mnt/etc/network/interfaces"
+    touch /mnt/etc/udev/rules.d/75-persistent-net-generator.rules
+    vim /mnt/etc/inittab # Basically add the JTAG console and comment out tty1-6, config see appendix C
+    echo "vm.mmap_min_addr=32768" >> /mnt/etc/sysctl.d/local.conf # Was recommended, so what ;-)
+
 
 I recommend using chmod like this (in most howtos only mounting proc is used) to have you system fully functional:
 
-```shell
-mount -o bind /dev /mnt/dev
-mount -o bind /dev/shm /mnt/dev/shm
-mount -o bind /proc /mnt/proc
-mount -o bind /sys /mnt/sys
-cp /etc/resolv.conf /mnt/etc/
-chroot /mnt
-```
+    mount -o bind /dev /mnt/dev
+    mount -o bind /dev/shm /mnt/dev/shm
+    mount -o bind /proc /mnt/proc
+    mount -o bind /sys /mnt/sys
+    cp /etc/resolv.conf /mnt/etc/
+    chroot /mnt
+
 
 Post install you should do some basic stuff in the chroot environment:
 
-```shell
-passwd
-/var/lib/dpkg/info/dash.preinst install
-dpkg --configure -a
-dpkg-reconfigure locales # I would choose all of yourlanguage* and en_US*, choose yourlanguage.UTF-8 as default
-rm /etc/apt/sources.list.d/multistrap-debian.list
-vim /etc/apt/sources.list # Create accordingly, mine see appendix D
-apt-get update && apt-get upgrade
-apt-get install cryptsetup dosfstools uboot-mkimage
-echo "dm-crypt" >> /etc/modules
-```
+    passwd
+    /var/lib/dpkg/info/dash.preinst install
+    dpkg --configure -a
+    dpkg-reconfigure locales # I would choose all of yourlanguage* and en_US*, choose yourlanguage.UTF-8 as default
+    rm /etc/apt/sources.list.d/multistrap-debian.list
+    vim /etc/apt/sources.list # Create accordingly, mine see appendix D
+    apt-get update && apt-get upgrade
+    apt-get install cryptsetup dosfstools uboot-mkimage
+    echo "dm-crypt" >> /etc/modules
 
 
 
@@ -145,33 +140,329 @@ Copy the shellscript for the dreamplug from http://sheeva.with-linux.com/sheeva/
 
 The following lines will install an allready uBoot enabled kernel image to /boot (where /dev/sdb1 should be mounted to) and the according modules to e.g. /lib/modules/2.6.39.3/.
 
-```shell
-wget http://sheeva.with-linux.com/sheeva/README-DREAM-UPDATE.sh
-chmod +x README-DREAM-UPDATE.sh
-./README-DREAM-UPDATE.sh 2.6.39.3
-```
+    wget http://sheeva.with-linux.com/sheeva/README-DREAM-UPDATE.sh
+    chmod +x README-DREAM-UPDATE.sh
+    ./README-DREAM-UPDATE.sh 2.6.39.3
+
 
 Now the most complicated part: Building you own initramfs. To do that, i followed http://en.gentoo-wiki.com/wiki/Initramfs (which, of all of the linked pages, you SHOULD read at least!). The basic steps are creating a subdirectory containing all nessecary binaries, the libraries used by that binaries and the needed kernel modules. I used the devtmpfs approach to populate my /dev folder, which worked (best) in my case.
 
 *Note:* The used pathes might change according to system, release and even update states, so i added how to find the needed files, too.
 
-```shell
-mkdir /usr/src/initramfs
-cd /usr/src/initramfs
-mkdir bin  dev  etc  lib  mnt  proc  root  sbin  sys
-apt-get install busybox
-which busybox # gives you the path to the binary
-cp -aL /bin/busybox /usr/src/initramfs/bin/ # copy the binary
-ldd /bin/busybox # find all needed libraries
-cp -aL WHATEVER_LISTED_LIBRARY /usr/src/initramfs/lib/ # copy the needed libraries
-d # repeat for cryptsetup, insmod and switch_root
-d # cp -aL, ldd, cp -aL ...
-d # remember to use the -L switch, or else you will copy symlinks as symlinks
-cp -a /lib/modules/2.6.39.3/kernel/drivers/md/dm-crypt.ko   /usr/src/initramfs/lib/modules/
-cp -a /lib/modules/2.6.39.3/kernel/drivers/md/dm-mod.ko     /usr/src/initramfs/lib/modules/
-cp -a /lib/modules/2.6.39.3/kernel/crypto/sha256_generic.ko /usr/src/initramfs/lib/modules/
-vim /usr/src/initramfs/init # The initrds script executed pre-boot, see Appendix E
-chmod +x /usr/src/initramfs/init
-find . -print0 | cpio --null -ov --format=newc | gzip -9 > ../my-initramfs.cpio.gz
-mkimage -A arm -O linux -T ramdisk -C gzip -a 0x00000000 -e 0x00000000 -n initramfs -d ../my-initramfs.cpio.gz /boot/manual-uInitrd
-```
+    mkdir /usr/src/initramfs
+    cd /usr/src/initramfs
+    mkdir bin  dev  etc  lib  mnt  proc  root  sbin  sys
+    apt-get install busybox
+    which busybox # gives you the path to the binary
+    cp -aL /bin/busybox /usr/src/initramfs/bin/ # copy the binary
+    ldd /bin/busybox # find all needed libraries
+    cp -aL WHATEVER_LISTED_LIBRARY /usr/src/initramfs/lib/ # copy the needed libraries
+    # repeat for cryptsetup, insmod and switch_root
+    # cp -aL, ldd, cp -aL ...
+    # remember to use the -L switch, or else you will copy symlinks as symlinks
+    cp -a /lib/modules/2.6.39.3/kernel/drivers/md/dm-crypt.ko   /usr/src/initramfs/lib/modules/
+    cp -a /lib/modules/2.6.39.3/kernel/drivers/md/dm-mod.ko     /usr/src/initramfs/lib/modules/
+    cp -a /lib/modules/2.6.39.3/kernel/crypto/sha256_generic.ko /usr/src/initramfs/lib/modules/
+    vim /usr/src/initramfs/init # The initrds script executed pre-boot, see Appendix E
+    chmod +x /usr/src/initramfs/init
+    find . -print0 | cpio --null -ov --format=newc | gzip -9 > ../my-initramfs.cpio.gz
+    mkimage -A arm -O linux -T ramdisk -C gzip -a 0x00000000 -e 0x00000000 -n initramfs -d ../my-initramfs.cpio.gz /boot/manual-uInitrd
+
+
+
+Now you should be able to boot you system with the following envvars:
+
+    setenv mainlineLinux yes
+    setenv arcNumber 2659
+    usb start
+    fatload usb 1 0x00800000 /dream-2.6.39.3-uImage
+    fatload usb 1 0x01100000 /manual-uInitrd
+    setenv bootargs console=ttyS0,115200 rootdelay=10 # You do not need a root=... parameter, as this i handled by the initramfs.
+    bootm 0x00800000 0x01100000
+
+**TODO write how to edit AND SAVE the envvars in uboot.**
+
+
+**The alternative way: Debians Kernel or any other kernel providing its own initial ramdisk**
+
+**@everyone:** Would someone please test this and complete this subsection?
+
+The upside of using Debians own kernel is, that you will get automated updates on the kernel and an update on the initial ramdisk (if you use a managed package like linux-image-kirkwood meta package), whereas you have to update you kernel manually in the first way and will propably never change you initial ramdisk once it works ;-) However the downside is, that you still have to convert the kernel and initramfs image to ubook format on every update and of course that it did not work in my case, god knows why. But here is how it _should_ work (in short):
+
+Install the debian default kernel for the kirkwood platform, enable dm-crypt support and convert the resulting kernel image and initramfs to uBoot format. It is (currently) 2.6.32-5-kirkwood.
+WARNING: The images will be installed to /boot per default, if your vfat partition is mounted there (as written above), this is not a problem, but on fat no symlinks can be created and thus you will see error messages. Furthermore you can not use these images, you have to convert them to uboot format. Maybe you might mount /dev/sdb1 to /uboot and do the conversion to this folder (as in the example below).
+
+If you keep the name for the uImage and uInitrd, you do not have to update uBoot settings each time.
+
+    apt-get install linux-image-kirkwood initramfs-tools
+    blkid /dev/sdb2
+    echo "sdb2_crypted UUID=XXXXXXXXXXXXXX none luks" >> /etc/crypttab # replace the Xs according to you uuid
+    vim /etc/fstab # alter / line to something like: /dev/mapper/sdb2_crypted / ext4 defaults 0 0
+    vim  /etc/initramfs-tools/modules # add (one line each): aes (??? aes_i586 x_aes86_64 ???) aes_generic dm-crypt dm-mod sha256 sha256_generic lrw xts crypto_blkcipher gf128mul
+    update-initramfs -u -k all
+    mkimage -A arm -O linux -T kernel  -C none -a 0x00008000 -e 0x00008000 -n uImage-debian  -d /boot/vmlinuz-2.6.32-5-kirkwood    /uboot/uImage-debian
+    mkimage -A arm -O linux -T ramdisk -C gzip -a 0x00000000 -e 0x00000000 -n uInitrd-debian -d /boot/initrd.img-2.6.32-5-kirkwood /uboot/uInitrd-debian
+
+The uboot envvars should be similar to the ones above with different image names. In addition, you now have to provide a "root=" parameter again, as this is not automatically handled by a fitted initramfs (
+
+    setenv mainlineLinux yes; setenv arcNumber 2659; usb start
+    fatload usb 0 0x00800000 /uImage-debian
+    fatload usb 0 0x01100000 /uInitrd-debian
+    setenv bootargs console=ttyS0,115200 rootdelay=10 kopt=root=/dev/mapper/sdb2_crypted ro; bootm 0x00800000 0x01100000
+
+**@everyone:** It should be possible to add this autoconversion to a kind of on-update system script (as grub is updated, too). Is there a debian pro out there able to write such a thing?
+
+
+# (optional) Step 6 - Enable remote unlock
+
+A big disadvantage to the now running system is, that you have to connect you JTAG everytime you boot up your system, start it up, enter the password, and disconnect JTAG again. So lets add some lines to the steps above to enable an unlocking from a remote system.
+
+**TODO does not work, propably missing something.**
+
+My work is based on /usr/share/doc/cryptsetup/README.remote.gz
+
+**Dreamplug way: Some random kernel without initial ramdisk but with at least initramfs support**
+
+Basically add dropbear to the initramfs and modify the /init script not to mount the disk, but to ifconfig eth0, route add, and start dropbrear.
+Just adding dropbear (and libraries) did not work for me, as it did not accept my keyfile. Also, adding the lines for root from /etc/{passwd,group,shadow} did not enable me to login via my password. I think you have to add many other programms managing user access (maybe pam, etc.)
+Note that roots homedirectory within the busybox/initramfs is / and not /root/, so propably the keyfiles have to be in /.ssh/ not in /root/.ssh/ (but i tried placing them anywhere...).
+
+**The alternative way: Debians Kernel or any other kernel providing its own initial ramdisk**
+
+You will propably have initramfs-tools installed with your kernel. If you install dropbear, the system will automatically add it to you initramfs-tools config, so just updating your initramfs will do the job (update-initramfs -u -k all)
+
+
+# (optional) Step 7 - Multiboot
+
+If you followed the howto with everything done on the external SD-Card, you will be able to follow the multiboot howto in order to boot either you new system or the default one.
+More infos here: http://www.newit.co.uk/forum/index.php/topic,2231.0.html
+
+
+# Famous last words and further thoughts
+
+Of course you know, every chain is only as strong as its weakest link. Therefor, if you are paranoid enought to follow this howto, be as nit-picky with ervery software you are running on your system. If someone can access your system at runtime, he can of course see all your data. And nothing on earth beats social engineering (because there is no patch for human stupidity).
+
+If it is ok for you if a jealous boy- or girlfriend or a guy from a three letter agency can see, which programms are actually installed on you system, you can try not to encrypt (/usr)/(s)bin directories but /etc, /home, /var, ... Of course, in this case, you can not deny that there actually IS a system on the SD-Card, but in exchange you might get rid of the ramdisk.
+
+
+# Appendix A - multistrap.conf
+
+This should provide a minimal, yet well usable, base system.
+
+    [General]
+    arch=armel
+    directory=/mnt
+    cleanup=false
+    noauth=false
+    unpack=true
+    aptsources=Debian
+    debootstrap=Debian
+
+    [Debian]
+    packages=apt base-files bzip2 cpio file gettext-base hostname ifupdown iputils-ping isc-dhcp-client less libertas-firmware locales man-db manpages module-init-tools netbase net-tools readline-common ssh udev vim wget whois
+    source=http://ftp.de.debian.org/debian
+    keyring=debian-archive-keyring
+    suite=squeeze
+    components=main contrib non-free
+
+
+# Appendix B - fstab
+
+This is basically the original one, slightly fine-tuned
+
+    rootfs          /               rootfs  relatime,rw                             0 0
+    udev            /dev            tmpfs   rw,mode=0755                            0 0
+    tmpfs           /dev/shm        tmpfs   rw,nosuid,nodev                         0 0
+    devpts          /dev/pts        devpts  rw,noexec,nosuid,gid=5,mode=620         0 0
+    proc            /proc           proc    rw,noexec,nosuid,nodev                  0 0
+    sysfs           /sys            sysfs   rw,noexec,nosuid,nodev                  0 0
+    tmpfs           /tmp            tmpfs   rw,nosuid,nodev                         0 0
+    tmpfs           /var/cache/apt  tmpfs   rw,noexec,nosuid                        0 0
+    /dev/sdb1       /boot           vfat    rw                                      0 0
+
+# Appendix C - inittab
+
+My modifications are mared with double hashsigns ("##").
+
+    # /etc/inittab: init(8) configuration.
+    # $Id: inittab,v 1.91 2002/01/25 13:35:21 miquels Exp $
+
+    # The default runlevel.
+    id:2:initdefault:
+
+    # Boot-time system configuration/initialization script.
+    # This is run first except when booting in emergency (-b) mode.
+    si::sysinit:/etc/init.d/rcS
+
+    # What to do in single-user mode.
+    ~~:S:wait:/sbin/sulogin
+
+    # /etc/init.d executes the S and K scripts upon change
+    # of runlevel.
+    #
+    # Runlevel 0 is halt.
+    # Runlevel 1 is single-user.
+    # Runlevels 2-5 are multi-user.
+    # Runlevel 6 is reboot.
+
+    l0:0:wait:/etc/init.d/rc 0
+    l1:1:wait:/etc/init.d/rc 1
+    l2:2:wait:/etc/init.d/rc 2
+    l3:3:wait:/etc/init.d/rc 3
+    l4:4:wait:/etc/init.d/rc 4
+    l5:5:wait:/etc/init.d/rc 5
+    l6:6:wait:/etc/init.d/rc 6
+    # Normally not reached, but fallthrough in case of emergency.
+    z6:6:respawn:/sbin/sulogin
+
+    # What to do when CTRL-ALT-DEL is pressed.
+    ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
+
+    # Action on special keypress (ALT-UpArrow).
+    #kb::kbrequest:/bin/echo "Keyboard Request--edit /etc/inittab to let this work."
+
+    # What to do when the power fails/returns.
+    pf::powerwait:/etc/init.d/powerfail start
+    pn::powerfailnow:/etc/init.d/powerfail now
+    po::powerokwait:/etc/init.d/powerfail stop
+
+    # /sbin/getty invocations for the runlevels.
+    #
+    # The "id" field MUST be the same as the last
+    # characters of the device (after "tty").
+    #
+    # Format:
+    #  <id>:<runlevels>:<action>:<process>
+    #
+    # Note that on most Debian systems tty7 is used by the X Window System,
+    # so if you want to add more getty's go ahead but skip tty7 if you run X.
+    #
+    ## You do not need the usual ttys
+    #1:2345:respawn:/sbin/getty 38400 tty1
+    #2:23:respawn:/sbin/getty 38400 tty2
+    #3:23:respawn:/sbin/getty 38400 tty3
+    #4:23:respawn:/sbin/getty 38400 tty4
+    #5:23:respawn:/sbin/getty 38400 tty5
+    #6:23:respawn:/sbin/getty 38400 tty6
+
+    # Example how to put a getty on a serial line (for a terminal)
+    #
+    #T0:23:respawn:/sbin/getty -L ttyS0 9600 vt100
+    #T1:23:respawn:/sbin/getty -L ttyS1 9600 vt100
+
+    # Example how to put a getty on a modem line.
+    #
+    #T3:23:respawn:/sbin/mgetty -x0 -s 57600 ttyS3
+
+    ## Add DreamPlugs serial console for JTAG
+    T0:23:respawn:/sbin/getty -L ttyS0 115200 vt100
+
+
+
+# Appendix D - souces.list
+
+This is just the default one with the servers containing the armel packages. But as you might install from within the Ubuntu 9.04 and the sources.list from the Globalscale Debian image is bad, her is mine:
+
+    # Debian Squeeze
+    deb http://ftp.de.debian.org/debian/ squeeze main contrib non-free
+    deb http://security.debian.org/ squeeze/updates main contrib non-free
+    deb http://ftp.de.debian.org/debian squeeze-updates main contrib non-free
+    deb http://backports.debian.org/debian-backports squeeze-backports main
+
+
+# Appendix E - init
+
+This script is executed if you initramfs is loaded. It has the same function as /sbin/init on regular systems. It will manage everything to be done before you "real" system can boot.
+
+    #!/bin/busybox sh
+
+    rescue_shell() {
+        echo "Something somewhere went terribly wrong. Dropping you to a shell."
+        busybox --install -s
+        exec /bin/sh
+    }
+
+    # Mount the /proc and /sys filesystems.
+    mount -t devtmpfs none /dev
+    mount -t proc none /proc
+    mount -t sysfs none /sys
+
+    # Insert kernel modules for crypto system
+    insmod -f /lib/modules/dm-mod.ko
+    insmod -f /lib/modules/dm-crypt.ko
+    insmod -f /lib/modules/sha256_generic.ko
+
+    # Wait for /dev to be initialised. Many thanks to Confusticated for the tip!!
+    # You might try to lower the value if you like to speed up you boot process.
+    sleep 5
+
+    # Mount the root filesystem via JTAG
+    cryptsetup -T 5 luksOpen /dev/sdb2 sdb2_crypted
+    mount -t ext4 -o ro /dev/mapper/sdb2_crypted /mnt/
+
+    # Clean up. (You might get error messages by switch_root, that /mnt/dev, /mnt/proc and /mnt/sys are not mounted, but thats ok)
+    umount /dev
+    umount /proc
+    umount /sys
+
+    # Boot the real thing.
+    exec switch_root /mnt/ /sbin/init  || rescue_shell
+
+
+
+So, now here i am with my fully encrypted system. For myself, as i did not worked out on how to unlock remotely, I folled my own tutorial to Step 5. I did not change my uboot envvars permanently, because i need to connect the JTAG anyway to enter my password.
+So when i am there, my encrypted system can boot by conecting the JTAG, entering the envvars and entering the password. If not, the default system, which still resides on /dev/sda, will be booted, as if nothing had happened.
+
+
+
+
+According to the documents for the 88F6281 found at the marvell site, there is a so called "Security Engine" on the SoC, which supports AES, DES, 3DES, SHA-1 and MD5. As far as i can see, the 88F6281 is the SoC which is used in the DreamPlug (read at the globalscale site). According to the document it has an aes128/128, aes128/192 and aes128/256 support. Nevertheless the unit seems to only have an aes128 box and will do a few more loops if you use 256-bit keys.
+
+The default kernel supports cbc and xts modes, and i think most of the others do, too.
+
+Found the info about the Soc: at http://www.globalscaletechnologies.com/c-5-dreamplugs.aspx
+Found the document at http://www.marvell.com/processors/embedded/kirkwood/ -> Product: 88F6281-> Document: Functional Spec (PDF: http://www.marvell.com/processors/embedded/kirkwood/assets/FS_88F6180_9x_6281_OpenSource.pdf)
+
+If found out, that xts lacks a little performance and (according to some warnings) is marked experimental.
+
+My performance test on writing speed  tells me, that the encrypted volume needs around 150% time compared to the unencrypted write time. cbc-essiv a bit less, xts-plain a bit more.
+
+You can find the supported encryption modes at /proc/crypto, but some only show, after loading the corresponding modules. In addition, cryptosetup will load these modules automatically!
+
+
+
+
+Some usefull links i did not mention in the howto, but are worth reading:
+
+Installing Debian on the Sheevaplug: http://blog.bofh.it/debian/id_265
+The unlock via ssh wich i try to adapt: http://www.howtoforge.com/unlock-a-luks-encrypted-root-partition-via-ssh-on-ubuntu
+Commands busybox is capable of: http://book.opensourceproject.org.cn/embedded/embeddedprime/opensource/0136130550/app03.html (you can also type busybox --help for that list)
+
+
+
+
+
+ @Confusticated:
+
+I tried (as you said) to change /mnt/ to /mnt in the switch_root statement. This worked out. To verify, i changed it back to /mnt/, and it worked either way... So i think something else was wrong when i got my first error message and the system stopped booting. However, i stilll get the error messages, even though the system boots normally:
+
+    ...
+    Enter passphrase for /dev/sdb2:
+    EXT4-fs (dm-0): mounted filesystem with ordered data mode. Opts: (null)
+    switch_root: failed to mount moving /dev to /mnt/dev: Invalid argument
+    switch_root: forcing unmount of /dev
+    switch_root: failed to mount moving /proc to /mnt/proc: Invalid argument
+    switch_root: forcing unmount of /proc
+    switch_root: failed to mount moving /sys to /mnt/sys: Invalid argument
+    switch_root: forcing unmount of /sys
+    INIT: version 2.88 booting
+    ...
+
+I updated my howtos init-file!
+
+
+
+
+
+a typing mistake in the first post:
+Internal micro SD-Card: /dev/sda => Its first partition (vfat) /dev/sd**a**1, its second partition (ext3) /dev/sda2

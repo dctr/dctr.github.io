@@ -454,4 +454,9 @@ dt {
  * TEMP
  */
 code {
-  background-color: white; }
+  background-color: white;
+  border: 1px solid #073642;
+  display: block;
+  font-family: monospace;
+  padding: 0.5em;
+  white-space: pre; }
