@@ -1,4 +1,6 @@
-dctr.github.io
-==============
+# Hello World
 
-dctr's github page
+Hi there and welcome to my homepage.
+
+
+# Recent blog posts
