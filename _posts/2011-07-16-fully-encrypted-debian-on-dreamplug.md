@@ -1,8 +1,6 @@
 ---
 layout: default
 ---
-# Intention: A fully encrypted up-to-date Debian on a dm-crypt encrypted external SD-Card
-
 Hi Guys,
 
 i did not find any thread on how to create a fully encrypted system on a DreamPlug, so now wrote my own here. I am not a real pro, but i did what i could. I found a lot of information so this thread is striped down to a "short" howto with links to where you can find further informations. Additionally, parts marked with "*Note:*" are sideways you might take. My goal was also to keep the original system on the micro SD-Card as is, to have a fallback system or to just bring you system to another device.
@@ -14,34 +12,30 @@ You are able to do everything in this thread form within your running default Dr
 You're welcome to post on any mistakes i made, misspelling, shortcuts other users may take or whatever you like to say. I hope this thread can evolve to a simple all-in-one howto/solution for others.
 
 
-# Required hardware
+## Prerequisites
 
+### Required hardware
 
 - Dreamplug
 - SD-Card (external slot)
 - JTAG unit
 
 
-
-# Naming conventions
+### Naming conventions
 
 Internal micro SD-Card: /dev/sda => Its first partition (vfat) /dev/sdb1, its second partition (ext3) /dev/sda2
 External SD-Card: /dev/sdb => I will create a similar partition sceme => First partition for /boot is /dev/sdb1, second partition for the encrypted filesystem is /dev/sdb2
 This is likely to be the naming on your device, too.
 
 
-**As this has grown to a huge howto, here a link to skip to the discussion below: http://www.newit.co.uk/forum/index.php/topic,2308.msg6517.html#msg6517**
-
-
-# Step 1 - Install you JTAG
+## Step 1 - Install you JTAG
 
 Find a thread in this forum according to you operating system and configure your JTAG connection to you computer.
 Mac OS X (did not work for me): http://www.newit.co.uk/forum/index.php/topic,2254.0.html
 Linux (Fedora): http://www.newit.co.uk/forum/index.php/topic,2064.0.html
 
 
-
-# Step 2 - Firmware update
+## Step 2 - Firmware update
 
 You need to enable the uBoot bootloader to load from the external SD-Card. I found a solution in the following thread in this forum: http://www.newit.co.uk/forum/index.php/topic,1977.0.html
 You might skip this step.
@@ -54,7 +48,7 @@ I want to have everything external and do not want to touch the preinstalled sys
 *Note:* If you replace the system on the internal micro SD-Card, in order to follow this tutorial, you have to take the card out of the plug and connect it to an other machine (a Debian would suite best) and to the work from there.
 
 
-# Step 3 - Create the encryptet disk
+## Step 3 - Create the encryptet disk
 
 I will use dm-crypt, as it is THE widely used standard for (full) disk encryption on Linux systems. As of that, i will not explain it here, just google or wikipedia it to find further information.
 You have to create two partitions on you external SD-Card. Partition 1: 100MB (vfat) for the kernel. Partition 2: The rest of your available space (to be encrypted ext4) for the system. If in some (hopefully near) future, the firmware can boot from ext partitions (ext2load instead of fatload), you might use ext2 instead of vfat for the first partition. The upside of this is for example, that you can symlink kernels instead of renaming or moving them.
@@ -63,24 +57,20 @@ You have to create two partitions on you external SD-Card. Partition 1: 100MB (v
 
 You should now verify cryptsetup and dosfstools are installed (and cfdisk, if you prefer it instead of fdisk). As root do:
 
-{% highlight shell linenos %}
-dd if=/dev/urandom of=/dev/sdb bs=10M # If your device is filled with random data, one can not distinguish between used and unused data on the system partition
-cfdisk /dev/sdb # Set up as said above or as you wish at your risk ;-)
-mkfs.vfat /dev/sdb1
-cryptsetup --verbose --cipher=aes-cbc-essiv:sha256 --verify-passphrase --key-size=256 luksFormat /dev/sdb2
-cryptsetup luksOpen /dev/sdb2 sdb2_crypted
-mkfs.ext4 /dev/mapper/sdb2_crypted
-mount /dev/mapper/sdb2_crypted /mnt
-{% endhighlight %}
-
+    dd if=/dev/urandom of=/dev/sdb bs=10M # If your device is filled with random data, one can not distinguish between used and unused data on the system partition
+    cfdisk /dev/sdb # Set up as said above or as you wish at your risk ;-)
+    mkfs.vfat /dev/sdb1
+    cryptsetup --verbose --cipher=aes-cbc-essiv:sha256 --verify-passphrase --key-size=256 luksFormat /dev/sdb2
+    cryptsetup luksOpen /dev/sdb2 sdb2_crypted
+    mkfs.ext4 /dev/mapper/sdb2_crypted
+    mount /dev/mapper/sdb2_crypted /mnt
 
 *Note:* I have decided to use aes-cbc-essiv with a 256-bit key (after long hours of thinking and bugging a friend of mine, sorry G) as it is Debians default and a good compromise between read/write performance and security. If you like to have a little more performance, try to use --key-size=128 or maybe 192. If you are slightly more paranoid and like to have a bit more security in exchange to a noticeable but not to high slowdown and an experimental mode try --cipher=xts-plain and --key-size=512 (note that xts needs a 256 bit key for itself, so it only uses 256-bit for the aes key, so you need to set key-size to 512).
 
 **Remeber:** Use a good password (>= 20 characters, upper and lower case, numbers, special characters, ... you know what i mean)
 
 
-
-# Step 4 - Bootstrap you new system
+## Step 4 - Bootstrap you new system
 
 You can use debootstrap (the classic way) or multistrap (a newer approach, does the same thing completely different) to build you own brandnew minimal system. There are (of course) tutorials in this forum for that. As for this guide, skip the parts regarding the kernel installation.
 Bootstrap method: http://www.newit.co.uk/forum/index.php/topic,2027.msg5773.html#msg5773 or from plugcomputer.org: http://www.plugcomputer.org/plugwiki/index.php/Creating_a_Debian_Image
@@ -103,7 +93,6 @@ My multistrap method is derived from http://www.newit.co.uk/forum/index.php/topi
     vim /mnt/etc/inittab # Basically add the JTAG console and comment out tty1-6, config see appendix C
     echo "vm.mmap_min_addr=32768" >> /mnt/etc/sysctl.d/local.conf # Was recommended, so what ;-)
 
-
 I recommend using chmod like this (in most howtos only mounting proc is used) to have you system fully functional:
 
     mount -o bind /dev /mnt/dev
@@ -112,7 +101,6 @@ I recommend using chmod like this (in most howtos only mounting proc is used) to
     mount -o bind /sys /mnt/sys
     cp /etc/resolv.conf /mnt/etc/
     chroot /mnt
-
 
 Post install you should do some basic stuff in the chroot environment:
 
@@ -127,8 +115,7 @@ Post install you should do some basic stuff in the chroot environment:
     echo "dm-crypt" >> /etc/modules
 
 
-
-# Step 5 - Install your kernel
+## Step 5 - Install your kernel
 
 Now, follow a kernel install thread of your choice. In the end you have to have a kernel and an initrd image (the latter is not default in most cases). Both have to be uBoot images.
 
@@ -144,7 +131,6 @@ The following lines will install an allready uBoot enabled kernel image to /boot
     wget http://sheeva.with-linux.com/sheeva/README-DREAM-UPDATE.sh
     chmod +x README-DREAM-UPDATE.sh
     ./README-DREAM-UPDATE.sh 2.6.39.3
-
 
 Now the most complicated part: Building you own initramfs. To do that, i followed http://en.gentoo-wiki.com/wiki/Initramfs (which, of all of the linked pages, you SHOULD read at least!). The basic steps are creating a subdirectory containing all nessecary binaries, the libraries used by that binaries and the needed kernel modules. I used the devtmpfs approach to populate my /dev folder, which worked (best) in my case.
 
@@ -169,8 +155,6 @@ Now the most complicated part: Building you own initramfs. To do that, i followe
     find . -print0 | cpio --null -ov --format=newc | gzip -9 > ../my-initramfs.cpio.gz
     mkimage -A arm -O linux -T ramdisk -C gzip -a 0x00000000 -e 0x00000000 -n initramfs -d ../my-initramfs.cpio.gz /boot/manual-uInitrd
 
-
-
 Now you should be able to boot you system with the following envvars:
 
     setenv mainlineLinux yes
@@ -182,7 +166,6 @@ Now you should be able to boot you system with the following envvars:
     bootm 0x00800000 0x01100000
 
 **TODO write how to edit AND SAVE the envvars in uboot.**
-
 
 **The alternative way: Debians Kernel or any other kernel providing its own initial ramdisk**
 
@@ -214,7 +197,7 @@ The uboot envvars should be similar to the ones above with different image names
 **@everyone:** It should be possible to add this autoconversion to a kind of on-update system script (as grub is updated, too). Is there a debian pro out there able to write such a thing?
 
 
-# (optional) Step 6 - Enable remote unlock
+## (optional) Step 6 - Enable remote unlock
 
 A big disadvantage to the now running system is, that you have to connect you JTAG everytime you boot up your system, start it up, enter the password, and disconnect JTAG again. So lets add some lines to the steps above to enable an unlocking from a remote system.
 
@@ -233,20 +216,20 @@ Note that roots homedirectory within the busybox/initramfs is / and not /root/, 
 You will propably have initramfs-tools installed with your kernel. If you install dropbear, the system will automatically add it to you initramfs-tools config, so just updating your initramfs will do the job (update-initramfs -u -k all)
 
 
-# (optional) Step 7 - Multiboot
+## (optional) Step 7 - Multiboot
 
 If you followed the howto with everything done on the external SD-Card, you will be able to follow the multiboot howto in order to boot either you new system or the default one.
 More infos here: http://www.newit.co.uk/forum/index.php/topic,2231.0.html
 
 
-# Famous last words and further thoughts
+## Famous last words and further thoughts
 
 Of course you know, every chain is only as strong as its weakest link. Therefor, if you are paranoid enought to follow this howto, be as nit-picky with ervery software you are running on your system. If someone can access your system at runtime, he can of course see all your data. And nothing on earth beats social engineering (because there is no patch for human stupidity).
 
 If it is ok for you if a jealous boy- or girlfriend or a guy from a three letter agency can see, which programms are actually installed on you system, you can try not to encrypt (/usr)/(s)bin directories but /etc, /home, /var, ... Of course, in this case, you can not deny that there actually IS a system on the SD-Card, but in exchange you might get rid of the ramdisk.
 
 
-# Appendix A - multistrap.conf
+## Appendix A - multistrap.conf
 
 This should provide a minimal, yet well usable, base system.
 
@@ -267,7 +250,7 @@ This should provide a minimal, yet well usable, base system.
     components=main contrib non-free
 
 
-# Appendix B - fstab
+## Appendix B - fstab
 
 This is basically the original one, slightly fine-tuned
 
@@ -281,7 +264,7 @@ This is basically the original one, slightly fine-tuned
     tmpfs           /var/cache/apt  tmpfs   rw,noexec,nosuid                        0 0
     /dev/sdb1       /boot           vfat    rw                                      0 0
 
-# Appendix C - inittab
+## Appendix C - inittab
 
 My modifications are mared with double hashsigns ("##").
 
@@ -360,7 +343,7 @@ My modifications are mared with double hashsigns ("##").
 
 
 
-# Appendix D - souces.list
+## Appendix D - souces.list
 
 This is just the default one with the servers containing the armel packages. But as you might install from within the Ubuntu 9.04 and the sources.list from the Globalscale Debian image is bad, her is mine:
 
@@ -371,7 +354,7 @@ This is just the default one with the servers containing the armel packages. But
     deb http://backports.debian.org/debian-backports squeeze-backports main
 
 
-# Appendix E - init
+## Appendix E - init
 
 This script is executed if you initramfs is loaded. It has the same function as /sbin/init on regular systems. It will manage everything to be done before you "real" system can boot.
 
@@ -410,12 +393,10 @@ This script is executed if you initramfs is loaded. It has the same function as 
     exec switch_root /mnt/ /sbin/init  || rescue_shell
 
 
+## Related
 
 So, now here i am with my fully encrypted system. For myself, as i did not worked out on how to unlock remotely, I folled my own tutorial to Step 5. I did not change my uboot envvars permanently, because i need to connect the JTAG anyway to enter my password.
 So when i am there, my encrypted system can boot by conecting the JTAG, entering the envvars and entering the password. If not, the default system, which still resides on /dev/sda, will be booted, as if nothing had happened.
-
-
-
 
 According to the documents for the 88F6281 found at the marvell site, there is a so called "Security Engine" on the SoC, which supports AES, DES, 3DES, SHA-1 and MD5. As far as i can see, the 88F6281 is the SoC which is used in the DreamPlug (read at the globalscale site). According to the document it has an aes128/128, aes128/192 and aes128/256 support. Nevertheless the unit seems to only have an aes128 box and will do a few more loops if you use 256-bit keys.
 
@@ -430,18 +411,11 @@ My performance test on writing speed  tells me, that the encrypted volume needs 
 
 You can find the supported encryption modes at /proc/crypto, but some only show, after loading the corresponding modules. In addition, cryptosetup will load these modules automatically!
 
-
-
-
 Some usefull links i did not mention in the howto, but are worth reading:
 
 Installing Debian on the Sheevaplug: http://blog.bofh.it/debian/id_265
 The unlock via ssh wich i try to adapt: http://www.howtoforge.com/unlock-a-luks-encrypted-root-partition-via-ssh-on-ubuntu
 Commands busybox is capable of: http://book.opensourceproject.org.cn/embedded/embeddedprime/opensource/0136130550/app03.html (you can also type busybox --help for that list)
-
-
-
-
 
  @Confusticated:
 
@@ -460,10 +434,6 @@ I tried (as you said) to change /mnt/ to /mnt in the switch_root statement. This
     ...
 
 I updated my howtos init-file!
-
-
-
-
 
 a typing mistake in the first post:
 Internal micro SD-Card: /dev/sda => Its first partition (vfat) /dev/sd**a**1, its second partition (ext3) /dev/sda2

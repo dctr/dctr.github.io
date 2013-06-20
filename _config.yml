@@ -1,3 +1,4 @@
+excerpt_separator: "\n\n\n"
 lsi: false
 permalink: /blog/:title
 pygments: true

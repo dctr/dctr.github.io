@@ -1,29 +1,3 @@
-/*
-Font Sizing Hack via
-http://html5boilerblate.com and
-http://developer.yahoo.com/yui/fonts/
-=====================================
-target size Declare this
-in pixels (px) percent (%)
-10 77
-11 85
-12 93 (was 93)
-13 100
-14 108 (was 107)
-15 116 (was 114)
-16 123.1 (was 122)
-17 131 (was 129)
-18 138.5 (was 136)
-19 146.5 (was 144)
-20 153.9 (was 152)
-21 161.6 (was 159)
-22 167
-23 174
-24 182
-25 189
-26 197
-*/
-
 @import "normalize";
 
 $base03: #002b36;
@@ -51,8 +25,8 @@ $border: 1px solid $base02;
 body > * {
   margin: 0;
   padding: {
-    left: 7em;
-    right: 7em;
+    left: 10em;
+    right: 10em;
     top: 1em;
     bottom: 1em;
   }
@@ -82,33 +56,29 @@ nav {
   }
 }
 
-h1,h2,h3,h4,h5,h6 {
+// Font Size = ln(2 * (7 - n)), n for hn
+h1, h2, h3, h4, h5, h6 {
   font-weight: lighter;
   text-transform: capitalize;
   font-variant: small-caps;
+  em {
+    float: right;
+    font-size: 0.5em;
+  }
 }
 h1 {
-  font-size: 153.9%;        //26px
+  font-size: 2.5em;
   font-weight: normal;
   border-bottom: $border;
 }
-div[role="main"] h1:first-child {
-  font-size: 197%;
-  font-weight: bold;
-  text-align: center;
-  border: none;
-}
 h2 {
-  font-size: 153.9%;        //23px
+  font-size: 2.3em;
   border-bottom: $border;
 }
-// h3,h4,h5,h6 {
-//   border-bottom: none;
-// }
-h3 { font-size: 146.5% }    //20px
-h4 { font-size: 138.5% }    //18px
-h5 { font-size: 138.5% }    //18px
-h6 { font-size: 138.5% }    //18px
+h3 { font-size: 2.1em; }
+h4 { font-size: 1.8em; }
+h5 { font-size: 1.4em; }
+h6 { font-size: 1em; /* 0.7em; */ }
 
 /*
  * Colors / Fonts
