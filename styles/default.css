@@ -432,4 +432,5 @@ code {
   display: block;
   font-family: monospace;
   padding: 0.5em;
-  white-space: pre; }
+  white-space: pre-wrap;
+  word-wrap: break-word; }

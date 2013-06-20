@@ -1,6 +1,6 @@
 ---
-title: dctr
 layout: default
+title: dctr
 ---
 Welcome to my homepage.
 
