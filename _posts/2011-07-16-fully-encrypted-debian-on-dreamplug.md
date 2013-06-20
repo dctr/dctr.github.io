@@ -1,5 +1,4 @@
 ---
-title: Fully encrypted Debian on DreamPlug
 layout: default
 ---
 # Intention: A fully encrypted up-to-date Debian on a dm-crypt encrypted external SD-Card
@@ -64,13 +63,15 @@ You have to create two partitions on you external SD-Card. Partition 1: 100MB (v
 
 You should now verify cryptsetup and dosfstools are installed (and cfdisk, if you prefer it instead of fdisk). As root do:
 
-    dd if=/dev/urandom of=/dev/sdb bs=10M # If your device is filled with random data, one can not distinguish between used and unused data on the system partition
-    cfdisk /dev/sdb # Set up as said above or as you wish at your risk ;-)
-    mkfs.vfat /dev/sdb1
-    cryptsetup --verbose --cipher=aes-cbc-essiv:sha256 --verify-passphrase --key-size=256 luksFormat /dev/sdb2
-    cryptsetup luksOpen /dev/sdb2 sdb2_crypted
-    mkfs.ext4 /dev/mapper/sdb2_crypted
-    mount /dev/mapper/sdb2_crypted /mnt
+{% highlight shell linenos %}
+dd if=/dev/urandom of=/dev/sdb bs=10M # If your device is filled with random data, one can not distinguish between used and unused data on the system partition
+cfdisk /dev/sdb # Set up as said above or as you wish at your risk ;-)
+mkfs.vfat /dev/sdb1
+cryptsetup --verbose --cipher=aes-cbc-essiv:sha256 --verify-passphrase --key-size=256 luksFormat /dev/sdb2
+cryptsetup luksOpen /dev/sdb2 sdb2_crypted
+mkfs.ext4 /dev/mapper/sdb2_crypted
+mount /dev/mapper/sdb2_crypted /mnt
+{% endhighlight %}
 
 
 *Note:* I have decided to use aes-cbc-essiv with a 256-bit key (after long hours of thinking and bugging a friend of mine, sorry G) as it is Debians default and a good compromise between read/write performance and security. If you like to have a little more performance, try to use --key-size=128 or maybe 192. If you are slightly more paranoid and like to have a bit more security in exchange to a noticeable but not to high slowdown and an experimental mode try --cipher=xts-plain and --key-size=512 (note that xts needs a 256 bit key for itself, so it only uses 256-bit for the aes key, so you need to set key-size to 512).
