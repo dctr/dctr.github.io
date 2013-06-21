@@ -1,6 +1,6 @@
 ---
 layout: default
-title: dctr
+title: Home
 ---
 Welcome to my homepage.
 
@@ -8,7 +8,7 @@ Welcome to my homepage.
 
 {% assign counter=0 %}
 {% for post in site.posts %}
-{% if counter < 3 %}
+{% if counter < 5 %}
 ## {{post.title}} *(from {{ post.date | date_to_string  }})*
 
 {{ post.excerpt }}

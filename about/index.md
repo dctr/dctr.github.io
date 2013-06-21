@@ -6,7 +6,7 @@ title: Outline
 - **Contact:**
   - **E-Mail:** david DOT christ AT uni DASH trier DOT de;
   - **GitHub:** [@dctr](https://github.com/dctr "github.com / dctr")
-- **Origin:** Germany
+- **Location:** Trier, Germany
 - **Graduation:** Diplom in IT, Specialization: System Software and Distributed Systems, 2012 @ <a href="http://www.uni-trier.de/" target="_blank">University of Trier</a>
 - **GnuPG Public Key ID:** 0xBD7AD679
 
