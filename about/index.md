@@ -3,8 +3,9 @@ layout: default
 title: Outline
 ---
 - **Name:** David Christ
+- **Occupation:** Software Developer @ <a href="http://jam-software.com/" target="_blank">JAM Software</a>
 - **Contact:**
-  - **E-Mail:** david DOT christ AT uni DASH trier DOT de;
+  - **E-Mail:** david DOT christ AT jam DASH software DOT com
   - **GitHub:** [@dctr](https://github.com/dctr "github.com / dctr")
 - **Origin:** Germany
 - **Graduation:** Diplom in IT, Specialization: System Software and Distributed Systems, 2012 @ <a href="http://www.uni-trier.de/" target="_blank">University of Trier</a>
