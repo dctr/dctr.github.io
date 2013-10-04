@@ -5,7 +5,7 @@ title: Outline
 - **Name:** David Christ
 - **Occupation:** Software Developer @ <a href="http://jam-software.com/" target="_blank">JAM Software</a>
 - **Contact:**
-  - **E-Mail:** david DOT christ AT jam DASH software DOT com
+  - **E-Mail:** dch UNDERSCORE dev AT genitopia DOT org
   - **GitHub:** [@dctr](https://github.com/dctr "github.com / dctr")
 - **Location:** Trier, Germany
 - **Graduation:** Diplom in IT, Specialization: System Software and Distributed Systems, 2012 @ <a href="http://www.uni-trier.de/" target="_blank">University of Trier</a>
