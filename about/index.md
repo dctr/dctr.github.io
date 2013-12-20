@@ -1,18 +1,39 @@
 ---
 layout: default
-title: Outline
+title: About
 ---
+# Contact
+
 - **Name:** David Christ
-- **Occupation:** Software Developer @ <a href="http://jam-software.com/" target="_blank">JAM Software</a>
+- **Occupation:** Software Developer @ JAM Software
 - **Contact:**
   - **E-Mail:** dch UNDERSCORE dev AT genitopia DOT org
   - **GitHub:** [@dctr](https://github.com/dctr "github.com / dctr")
 - **Location:** Trier, Germany
-- **Graduation:** Diplom in IT, Specialization: System Software and Distributed Systems, 2012 @ <a href="http://www.uni-trier.de/" target="_blank">University of Trier</a>
+- **Graduation:** Diplom in IT, Specialization: System Software and Distributed Systems, 2012 @ 
 - **GnuPG Public Key ID:** 0xBD7AD679
 
+# Vita
 
-# Work
+| Date | Fact |
+|-----:|:-----|
+| 2005 | Abitur |
+| 2012 | Diplom |
 
-- [Kooperative verteilte Fehleranalyse auf der Basis von Crowdsourcing](/downloads/kooperative-verteilte-fehleranalyse-auf-der-basis-von-crowdsourcing.pdf) (Diploma thesis, German, 90 pages, 526 kB)
-- [Crowd storage for a distributed database](/downloads/crowd-storage-for-a-distributed-database.pdf) (Paper condensed from thesis, 6 pages, 118kB)
+<div class="hidden">
+# Disclaimer
+
+## Haftung für Inhalte
+
+Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.
+
+## Haftung für Links
+
+Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.
+
+## Urheberrecht
+
+Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.
+
+*Quellen:* Disclaimer von [eRecht24](http://www.e-recht24.de/muster-disclaimer.html), dem Portal zum Internetrecht von Rechtsanwalt Sören Siebert
+</div>

@@ -1,4 +1,3 @@
-markdown: redcarpet
 name: dctr
 permalink: /blog/:title
 pygments: true
