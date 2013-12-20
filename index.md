@@ -2,6 +2,8 @@
 layout: default
 title: Home
 ---
+# Home
+
 Welcome to my homepage.
 
 # Recent Blog Entries
@@ -9,7 +11,7 @@ Welcome to my homepage.
 {% assign counter=0 %}
 {% for post in site.posts %}
 {% if counter < 5 %}
-## {{post.title}} *(from {{ post.date | date_to_string  }})*
+## {{post.title}} <span class="pull-right annotation">*(from {{ post.date | date_to_string  }})*</span>
 
 {{ post.excerpt }}
 
