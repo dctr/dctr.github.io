@@ -2,14 +2,15 @@
 # The humans responsible & technology colophon
 
 # TEAM
-David Christ -- Site owner, subject, and admin -- github: @dctr
+
+David Christ -- Site owner, subject, and admin
 
 
 # THANKS
 
-    Noone yet...
+Noone yet...
+
 
 # TECHNOLOGY COLOPHON
 
-    HTML5, CSS3
-    normalize.css
+HTML5, CSS3
