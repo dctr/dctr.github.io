@@ -1,6 +1,7 @@
 body {
-  padding-top: 70px;
+  padding-top: 60px;
 }
+
 table {
   border-collapse: collapse;
 }
@@ -15,8 +16,8 @@ th, td {
 }
 
 .annotation {
-	font-size: 0.7em;
-	font-weight: lighter;
+  font-size: 0.7em;
+  font-weight: lighter;
 }
 
 /* Sticky Footer */
