@@ -4,7 +4,7 @@ title: Home
 ---
 # Home
 
-Welcome to my homepage.
+Welcome to my page.
 
 # Recent Blog Entries
 
