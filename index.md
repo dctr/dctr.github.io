@@ -4,7 +4,7 @@ title: Home
 ---
 # Home
 
-Welcome to my site. Nothing special here...
+Welcome to my site. Nothing special here....
 
 # Recent Blog Entries
 
