@@ -5,20 +5,18 @@ title: About
 # Contact
 
 - **Name:** David Christ
-- **Occupation:** Software Developer @ JAM Software
 - **Contact:**
   - **E-Mail:** dch UNDERSCORE dev AT genitopia DOT org
   - **GitHub:** [@dctr](https://github.com/dctr "github.com / dctr")
 - **Location:** Trier, Germany
-- **Graduation:** Diplom in IT, Specialization: System Software and Distributed Systems, 2012 @ 
 - **GnuPG Public Key ID:** 0xBD7AD679
 
 # Vita
 
 | Date | Fact |
 |-----:|:-----|
-| 2005 | Abitur |
-| 2012 | Diplom |
+| 2012 | Diplom in IT, Specialization: System Software and Distributed Systems @ [University of Trier](http://www.uni-trier.de/) |
+| since 2013 | Software Developer @ [JAM Software](http://jam-software.com/) |
 
 <div class="hidden">
 # Disclaimer
