@@ -4,14 +4,14 @@ title: Home
 ---
 # Home
 
-Welcome to my site. 
+Welcome to my site.
 
 # Recent Blog Entries
 
 {% assign counter=0 %}
 {% for post in site.posts %}
 {% if counter < 5 %}
-## {{post.title}} <span class="pull-right annotation">*(from {{ post.date | date_to_string  }})*</span>
+## {{post.title}} <small>(from {{ post.date | date_to_string  }})</small>
 
 {{ post.excerpt }}
 
