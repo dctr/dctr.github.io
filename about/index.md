@@ -15,8 +15,8 @@ title: About
 
 | Date | Fact |
 |-----:|:-----|
-| 2012 | Diplom in IT, Specialization: System Software and Distributed Systems @ [University of Trier](http://www.uni-trier.de/) |
-| since 2013 | Software Developer @ [JAM Software](http://jam-software.com/) |
+| May 2012 | Diplom in IT, Specialization: System Software and Distributed Systems @ [University of Trier](http://www.uni-trier.de/) |
+| since 2013 | Project Lead *SEPA-Transfer* @ [JAM Software](http://jam-software.com/) |
 
 <div class="hidden">
 # Disclaimer
