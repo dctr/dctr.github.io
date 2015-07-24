@@ -6,17 +6,17 @@ title: About
 
 - **Name:** David Christ
 - **Contact:**
-  - **E-Mail:** dch UNDERSCORE dev AT genitopia DOT org
+  - **E-Mail:** chd PLUS dev AT genitopia DOT org
   - **GitHub:** [@dctr](https://github.com/dctr "github.com / dctr")
-- **Location:** Trier, Germany
-- **GnuPG Public Key ID:** 0xBD7AD679
+- **Location:** Stuttgart, Germany
 
 # Vita
 
 | Date | Fact |
 |-----:|:-----|
 | May 2012 | Diplom in IT, Specialization: System Software and Distributed Systems @ [University of Trier](http://www.uni-trier.de/) |
-| since 2013 | Project Lead *SEPA-Transfer* @ [JAM Software](http://jam-software.com/) |
+| 2013 to 2014 | Project Lead *SEPA-Transfer* @ [JAM Software](http://jam-software.com/) |
+| since 2014 | Associate Consultant @ [bridgingIT](http://bridging-it.de/) |
 
 <div class="hidden">
 # Disclaimer
