@@ -42,6 +42,7 @@ title: About
 **Associate Consultant - Software Engineering**
 @ [BridgingIT GmbH](http://www.bridging-it.de/) Stuttgart, Germany
 :  September 2014 - Present
+
 * About BridgingIT
   * BridgingIT GmbH was founded as an independent IT consulting firm in early 2008. As full service provider, they guarantee a comprehensive implementation of professional and technical requirements and build bridges between IT and business side.
 * Responsibilities
@@ -55,6 +56,7 @@ title: About
 **Lead Software Engineer and Customer Support**
 @ [JAM Software GmbH](http://www.jam-software.com/) Trier, Germany
 : September 2013 - July 2014
+
 * About JAM Software
   * JAM Software was founded in 1997 and has been successful in the field of software development ever since. It's core competency is the development of standard software solutions for users, developers and enterprises.
 * Responsibilities
@@ -68,16 +70,19 @@ title: About
 **Research Associate**
 @ [Chair of System Software and Distributed Systems](https://www.uni-trier.de/index.php?id=2057&L=2) University of Trier, Germany
 : October 2012 - August 2013
+
 * Evaluation of crowdsourcing for distributed NoSQL databases
 
 **Tutor**
 @ [Chair of Databases and Information Systems](https://www.uni-trier.de/index.php?id=4671&L=2) University of Trier, Germany
 : October 2010 - March 2012
+
 * Lecturing and one-to-one mentoring for students
 
 **Software Developer**
 @ [ZIMK](https://www.uni-trier.de/index.php?id=518&L=2) Trier, Germany
 : February 2007 - December 2009
+
 * About ZIMK
   * The ZIMK (Centre for Information, Media and Communication Technology) provides the IT infrastructure of the University of Trier.
 * Responsibilities
@@ -91,6 +96,7 @@ title: About
 
 [University of Trier](http://www.uni-trier.de/)
 : October 2006 - May 2012
+
 * Diplom (equivalent to M.Sc.) in Computer Science
 * Grade: A, best of class
 * Head of student representatives
