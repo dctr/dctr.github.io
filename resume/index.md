@@ -1,3 +1,7 @@
+---
+layout: default
+title: About
+---
 # David Christ
 
     Stuttgart, Germany
