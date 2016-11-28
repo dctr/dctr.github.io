@@ -28,20 +28,20 @@ title: About
 : RESTful web & Microservices, Internet of Things, Containerization, XaaS
 
 * Languages
-: Java (incl. 8), C#, JavaScript (incl. ES2015), HTML, (S)CSS, Bash, Python, PHP, JSON, XML
+: Java (incl. 8), Ruby, JavaScript (incl. ES2015), HTML, (S)CSS, Bash, Delphi, C#, Python, PHP, JSON, XML
 
 * Frameworks
 : ReactiveX, JUnit, Mockito, Node.js, AngularJS, Selenium, .NET, ASP.NET, MongoDB, Cassandra, MySQL
 
 * Platforms
-: Linux, Mac, Windows, SQL, NoSQL
+: AWS, Linux, Mac, Windows, SQL, NoSQL
 
 
 ## Professional Experience
 
 **Software Engineer**
 @ [REA Group](https://www.rea-group.com/) Melbourne, Australia
-: June 2016 - Present
+: July 2016 - Present
 
 * About REA
   * REA Group is a global online real estate advertising company headquartered in Melbourne, Australia. It's major product, [realestate.com.au](http://realestate.com.au/) is Australia's largest property website.
