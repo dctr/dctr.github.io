@@ -8,8 +8,8 @@ title: About
 - **Contact:**
   - **E-Mail:** chd PLUS dev AT genitopia DOT org
   - **GitHub:** [@dctr](https://github.com/dctr "github.com / dctr")
-  - **LinkedIn:** [@dctr42](https://linkedin.com/in/dctr42 "linkedin.com / dctr42")
-- **Location:** Stuttgart, Germany
+  - **LinkedIn:** [dctr42](https://linkedin.com/in/dctr42 "linkedin.com / dctr42")
+- **Location:** Melbourne, Australia
 
 <div class="hidden">
 # Disclaimer

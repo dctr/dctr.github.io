@@ -39,9 +39,23 @@ title: About
 
 ## Professional Experience
 
+**Software Engineer**
+@ [REA Group](https://www.rea-group.com/) Melbourne, Australia
+: June 2016 - Present
+
+* About REA
+  * REA Group is a global online real estate advertising company headquartered in Melbourne, Australia. It's major product, [realestate.com.au](http://realestate.com.au/) is Australia's largest property website.
+* Responsibilities
+  * Full-stack software engineering and devops in a microservice-focused environment
+  * Cross-collaboration over various locations in Australia and China and various parts of the group
+  * Cross-collaboration over various teams including user experience, business analytics and data analytics
+* Achievements
+  * Put internationalisation awareness into focus
+  * Contributed to cross-business infrastructure integration APIs
+
 **Associate Consultant - Software Engineering**
 @ [BridgingIT GmbH](http://www.bridging-it.de/) Stuttgart, Germany
-:  September 2014 - Present
+:  September 2014 - June 2016
 
 * About BridgingIT
   * BridgingIT GmbH was founded as an independent IT consulting firm in early 2008. As full service provider, they guarantee a comprehensive implementation of professional and technical requirements and build bridges between IT and business side.
